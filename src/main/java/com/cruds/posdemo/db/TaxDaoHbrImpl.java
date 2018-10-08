@@ -1,0 +1,56 @@
+package com.cruds.posdemo.db;
+
+import java.util.List;
+
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.cruds.posdemo.entity.FormBeanTax;
+import com.cruds.posdemo.entity.Tax;
+import com.cruds.posdemo.entity.User;
+
+
+@Repository
+@Transactional
+public class TaxDaoHbrImpl implements TaxDao{
+	
+	@Autowired
+	SessionFactory sessionFactory;
+
+	@Override
+	public boolean addTax(Tax tax) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		session.save(tax);
+		tx.commit();
+		session.close();
+		System.out.println("Hibernate DAO Create user Method");
+		return true;
+	}
+	
+	public List<Tax> getAllTax() {
+		Session session = sessionFactory.openSession();
+
+		Transaction tx = session.beginTransaction();
+		String hql = "FROM Tax"; 
+		Query query = session.createQuery(hql); 
+		List<Tax> results = query.list();
+		tx.commit();
+		session.close();
+		return results;
+		
+	}
+	
+	
+
+}
