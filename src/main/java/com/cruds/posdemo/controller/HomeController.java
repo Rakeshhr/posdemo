@@ -2,10 +2,13 @@ package com.cruds.posdemo.controller;
 
 import java.time.LocalDate;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +20,7 @@ import com.cruds.posdemo.entity.Tax;
 import com.cruds.posdemo.entity.User;
 import com.cruds.posdemo.service.TaxService;
 import com.cruds.posdemo.service.UserService;
+
 
 
 @Controller
@@ -57,6 +61,24 @@ public class HomeController {
 		Tax tax=new Tax(taxname,taxrate,startDate);
 		taxser.addTax(tax);
 		return "redirect:home.html";
+	}
+	
+	@RequestMapping(value="/inactive-{id}", method=RequestMethod.GET)
+	public String inactive(@PathVariable int id,HttpSession session)
+	{
+		session.setAttribute("id", id);
+		return "redirect:taxes.html";
+	}
+	
+	
+	@RequestMapping(value="/setinactive")
+	public String inactive1(@ModelAttribute("user") User user,HttpSession session)
+	{
+		int id = (int) session.getAttribute("id");
+		LocalDate endDate = LocalDate.now();	
+		taxser.setInactive(id, endDate);
+		session.removeAttribute("id");
+		return "redirect:taxes.html";
 	}
 	
 	

@@ -1,5 +1,6 @@
 package com.cruds.posdemo.db;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
@@ -50,6 +51,24 @@ public class TaxDaoHbrImpl implements TaxDao{
 		return results;
 		
 	}
+
+	@Override
+	public boolean setInactive(int id, LocalDate endDate) {
+		Session session = sessionFactory.openSession();
+
+		Transaction tx = session.beginTransaction();
+		
+		String hql = "UPDATE Tax set status='Inactive',endDate=:endDate where tax_id=:id"; 
+		Query query = session.createQuery(hql); 
+		query.setParameter("endDate", endDate);
+		query.setParameter("id", id);
+		int result = query.executeUpdate();
+		tx.commit();
+		session.close();
+		return true;
+	}
+	
+	
 	
 	
 

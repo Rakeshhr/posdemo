@@ -2,4 +2,4 @@
 
 
 
-    <c:redirect url="login.html"/>    
+    <c:redirect url="home.html"/>    

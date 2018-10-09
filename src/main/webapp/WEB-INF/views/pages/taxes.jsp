@@ -62,7 +62,7 @@
 						<td><c:out value="${s.id}"/> </td>
 						<td><c:out value="${s.name}"/></td>
 						<td><c:out value="${s.rate}" /></td>
-						<td><a href="#" id="btnLink1" onclick="hide()"><c:out value="${s.status}"/></a></td>
+						<td><a href="inactive-${s.id}" id="btnLink1"><c:out value="${s.status}"/></a></td>
 						</tr>
 						</c:forEach>
                       </tbody>
@@ -78,7 +78,7 @@
 
 			<div>
 			<div class="btn btn-success mr-2" id="btnLink" onclick="hideLink()">Add</div> <br><br>
-			<button type="submit" class="btn btn-success mr-2" id="myLink1" class="myLink1">Inactive</button></div>
+			<a href="setinactive.html"  type="submit" class="btn btn-success mr-2" >Inactive</a></div>
 			
 				<div class="col-12" id="myLink" class="myLink">
                   <div class="card" >

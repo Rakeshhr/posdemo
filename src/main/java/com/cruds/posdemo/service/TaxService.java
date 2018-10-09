@@ -1,5 +1,6 @@
 package com.cruds.posdemo.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,11 @@ public class TaxService {
 	{
 		
 		return dao.getAllTax();
+	}
+	
+	public boolean setInactive(int id,LocalDate endDate)
+	{
+		return dao.setInactive(id, endDate);
 	}
 
 }
